@@ -65,6 +65,7 @@ class AvatarHeader extends React.Component {
       RightTopIcon,
       rightTopIconOnPress,
       image,
+      imageOnPress,
       backgroundColor,
       title,
     } = this.props;
@@ -101,7 +102,9 @@ class AvatarHeader extends React.Component {
             <LeftTopIcon/>
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
-            <Animated.Image source={image} style={[styles.headerPic, { opacity: imageOpacity }]} />
+            <TouchableOpacity onPress={imageOnPress}>
+              <Animated.Image source={image} style={[styles.headerPic, { opacity: imageOpacity }]}/>
+            </TouchableOpacity>
             <Animated.Text numberOfLines={1} style={[styles.headerTitle, { opacity: nameOpacity }]}>
               {title}
             </Animated.Text>
@@ -125,7 +128,7 @@ class AvatarHeader extends React.Component {
   };
 
   renderAvatarForeground = () => {
-    const { image, subtitle, title } = this.props;
+    const { image, imageOnPress, subtitle, title } = this.props;
     const startSize = constants.responsiveWidth(18);
     const endSize = constants.responsiveWidth(12);
 
@@ -161,10 +164,12 @@ class AvatarHeader extends React.Component {
     return (
       <View style={styles.foreground}>
         <Animated.View style={{ opacity: imageOpacity }}>
-          <Animated.Image
-            source={image}
-            style={[styles.profilePic, { width: imageSize, height: imageSize }]}
-          />
+          <TouchableOpacity onPress={imageOnPress}>
+            <Animated.Image
+              source={image}
+              style={[styles.profilePic, { width: imageSize, height: imageSize }]}
+            />
+          </TouchableOpacity>
         </Animated.View>
         <Animated.View
           style={[
@@ -296,6 +301,7 @@ AvatarHeader.propTypes = {
   title: string,
   subtitle: string,
   image: Image.propTypes.source,
+  imageOnPress: func,
   children: node,
   renderBody: func,
   scrollEvent: func,
@@ -325,6 +331,7 @@ AvatarHeader.defaultProps = {
   title: Brandon.author,
   subtitle: null,
   image: Brandon.image,
+  imageOnPress: () => {},  
   children: <RenderContent user={Brandon} />,
   bounces: true,
   snapToEdge: true,

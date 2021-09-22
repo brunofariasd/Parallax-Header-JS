@@ -102,6 +102,7 @@ export type AvatarHeaderProps = SharedProps &
     hasBorderRadius?: boolean;
     header?: () => ReactElement;
     image?: ImageSourcePropType;
+    imageOnPress?: () => void;
     renderBody?: (title: string) => ReactElement;
     scrollEvent?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
     snapStartThreshold?: number;
